@@ -9,7 +9,7 @@ Hey Quick Keyboard is an AutoHotkey script that adds useful shortcuts and improv
 ## Features
 
 - You can toggle the script on or off with Win + CapsLock (It is enabled by default.)
-- To use the numpad keys, you can press the number keys from 0 to 9 without pressing Shift, Win or AltrGr keys. You can also create Alt codes with the Alt key and use numpad operators, please check the [Shortcuts](#shortcuts) section below.
+- To use the numpad keys, you can press the number keys from 0 to 9 without pressing Shift, Win or AltGr keys. You can also create Alt codes with the Alt key and use numpad operators, please check the [Shortcuts](#shortcuts) section below.
 - To use the tab keys, you can use Pause for switch a window that displays all open windows, PgUp and PgDn switches between open windows in Windows from left to right or the opposite.
 - To take a screenshot of the entire screen and saves it to the Pictures\Screenshots folder, you can use PrtSc. And Ctrl + PrtSc takes a screenshot and copies it to the clipboard.
 - For Windows operations, Ctrl + Alt + F4 force quit the active window, Win + F5 restarts Explorer and clears temp files.

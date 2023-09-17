@@ -3,7 +3,7 @@
 ; Win + CapsLock to toggle it on or off
 
 ; Numpad
-; !(Shift | Win | AltrGr) + 0-9 = Numpad 0-9
+; !(Shift | Win | AltGr) + 0-9 = Numpad 0-9
 ; Alt + . = Numpad .
 ; Left Alt + / = Numpad /
 ; Left Alt + - = Numpad -
@@ -449,7 +449,7 @@ HelpLabel:
 hotkeyInfo := "Hey Quick Keyboard v1.0`nWin + CapsLock to toggle it on or off`n`n"
 ; Numpad
 hotkeyInfo .= "Numpad`n"
-hotkeyInfo .= "!(Shift | Win | AltrGr) + 0-9 = Numpad 0-9`n"
+hotkeyInfo .= "!(Shift | Win | AltGr) + 0-9 = Numpad 0-9`n"
 hotkeyInfo .= "Alt + . = Numpad .`n"
 hotkeyInfo .= "Left Alt + / = Numpad /`n"
 hotkeyInfo .= "Left Alt + - = Numpad -`n"
@@ -482,4 +482,5 @@ hotkeyInfo .= "Mouse`n"
 hotkeyInfo .= "Menu Key = Middle Click`n"
 hotkeyInfo .= "Left Alt + Arrow Keys = Scroll Wheel`n"
 MsgBox, %hotkeyInfo%`nDeveloped by Halil Emre Yildiz`nGithub: @JahnStar
+Run, https://github.com/JahnStar/Hey-Quick-Keyboard/
 return
