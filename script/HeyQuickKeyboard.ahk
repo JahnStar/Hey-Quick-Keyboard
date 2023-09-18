@@ -30,10 +30,16 @@
 ; Win + F3 Sleep Timer
 ; Win + F4 Shutdown Timer
 ; Win + F6 Logout Timer
+; Win + 12 Turn off the display (Esc for cancel)
 
 ;Mouse
 ; Menu Key = Middle Click
-; Left Alt + Arrow Keys = Scroll Wheel
+; Right Ctrl + Arrows = Mouse movement
+; Right Ctrl + M = Move cursor in the middle
+; Right Ctrl + Z = Left Click
+; Right Ctrl + Y = Middle Click
+; Right Ctrl + C = Right Click
+; Left Alt + Up/Down Arrow = Scroll Wheel
 
 ; ==============================================================================================================================================================================================
 #NoEnv
@@ -48,7 +54,7 @@ Suspend, Off
 
 update_traytip()
 {
-    tray_text := "Hey Quick Keyboard v1.0`nAuthor: @JahnStar (Github)`n`nToggle with Win + CapsLock"
+    tray_text := "Hey Quick Keyboard v1.1`nAuthor: @JahnStar (Github)`n`nToggle with Win + CapsLock"
 
 	if (A_IsSuspended)
     {
@@ -123,229 +129,241 @@ return
 
 ;; Power --------------------------------------------------
 #F3:: ;; Sleep
-If (Timer > 0) ; If there is a previously set timer
+If (Timer > 0) 
 {
-    Elapsed := A_TickCount - Start ; The time elapsed since the timer started (milliseconds)
-    Remaining := (Timer - Elapsed) // 3600000 ; The time remaining (hours)
-    RemainingMinutes := Mod((Timer - Elapsed), 3600000) // 60000 ; The remaining minutes after hours
+    Elapsed := A_TickCount - Start 
+    Remaining := (Timer - Elapsed) // 3600000 
+    RemainingMinutes := Mod((Timer - Elapsed), 3600000) // 60000 
     MsgBox, 3, The %TimerName% timer is running,The computer will %TimerName% in %Remaining% hours and %RemainingMinutes% minutes.`n`nDo you want to cancel the timer?, 20
     IfMsgBox, Yes
     {
-        SetTimer, SleepMode, Off ; Stop the timer
-        Timer := 0 ; Reset the timer value
+        SetTimer, SleepMode, Off 
+        Timer := 0 
         ElapsedTime := Elapsed // 3600000
         ElapsedMinutes := Mod((Elapsed), 3600000) // 60000
-        MsgBox, 48, Sleep Mode Timer, The %TimerName% timer was canceled with %Remaining% hours and %RemainingMinutes% minutes remaining (Elapsed %ElapsedTime% hours and %ElapsedMinutes% minutes).
+        MsgBox, 48, Sleep Mode Timer, The %TimerName% timer was canceled with %Remaining% hours and %RemainingMinutes% minutes remaining (Elapsed %ElapsedTime% hours and %ElapsedMinutes% minutes)., 20
         TimerName := ""
     }
 }
-Else ; If there is no previously set timer
+Else 
 {
     InputBox, UserInput, Sleep Mode Timer, How many hours do you want the computer to go to sleep mode?`n,,,, Locale , 20
-    If (ErrorLevel = 0) ; If OK button is pressed
+    If (ErrorLevel = 0) 
     {
-        If (UserInput is Integer) ; If the entered value is an integer
+        If (UserInput is Integer) 
         {
             TimerName := "sleep"
-            Timer := UserInput * 3600000 ; Convert the entered hour value to milliseconds
-            Start := A_TickCount ; Save the timer start time
-            SetTimer, SleepMode, %Timer% ; Start the timer
-            MsgBox, 64, Sleep Mode Timer, The computer will go to sleep mode in %UserInput% hours.
+            Timer := UserInput * 3600000 
+            Start := A_TickCount 
+            SetTimer, SleepMode, %Timer% 
+            MsgBox, 64, Sleep Mode Timer, The computer will go to sleep mode in %UserInput% hours., 20
         }
     }
 }
 Return
 SleepMode:
-    SetTimer, SleepMode, Off ; Stop the timer
+    SetTimer, SleepMode, Off 
     If (TimerName != "sleep") 
     {
-        Timer := 0 ; Reset the timer value
+        Timer := 0 
         Return
     }
     MsgBox, 4, , The computer will %TimerName% in 30 seconds. Do you want to %TimerName%?, 30
     IfMsgBox No
     Return
-    DllCall("PowrProf\SetSuspendState", "int", 0, "int", 0, "int", 0) ; Put the computer to sleep mode
+    DllCall("PowrProf\SetSuspendState", "int", 0, "int", 0, "int", 0)
 Return
 #F4:: ;; Shutdown
-If (Timer > 0) ; If there is a previously set timer
+If (Timer > 0) 
 {
-    Elapsed := A_TickCount - Start ; The time elapsed since the timer started (milliseconds)
-    Remaining := (Timer - Elapsed) // 3600000 ; The time remaining (hours)
-    RemainingMinutes := Mod((Timer - Elapsed), 3600000) // 60000 ; The remaining minutes after hours
+    Elapsed := A_TickCount - Start 
+    Remaining := (Timer - Elapsed) // 3600000 
+    RemainingMinutes := Mod((Timer - Elapsed), 3600000) // 60000 
     MsgBox, 3, The %TimerName% timer is running,The computer will %TimerName% in %Remaining% hours and %RemainingMinutes% minutes.`n`nDo you want to cancel the timer?, 20
     IfMsgBox, Yes
     {
-        SetTimer, ShutdownMode, Off ; Stop the timer
-        Timer := 0 ; Reset the timer value
+        SetTimer, ShutdownMode, Off 
+        Timer := 0 
         ElapsedTime := Elapsed // 3600000
         ElapsedMinutes := Mod((Elapsed), 3600000) // 60000
-        MsgBox, 48, Shutdown Mode Timer, The %TimerName% timer was canceled with %Remaining% hours and %RemainingMinutes% minutes remaining (Elapsed %ElapsedTime% hours and %ElapsedMinutes% minutes).
+        MsgBox, 48, Shutdown Mode Timer, The %TimerName% timer was canceled with %Remaining% hours and %RemainingMinutes% minutes remaining (Elapsed %ElapsedTime% hours and %ElapsedMinutes% minutes)., 20
         TimerName := ""
     }
 }
-Else ; If there is no previously set timer
+Else 
 {
     InputBox, UserInput, Shutdown Mode Timer, How many hours do you want the computer to shut down?`n,,,, Locale , 20
-    If (ErrorLevel = 0) ; If OK button is pressed
+    If (ErrorLevel = 0) 
     {
-        If (UserInput is Integer) ; If the entered value is an integer
+        If (UserInput is Integer) 
         {
             TimerName := "shut down"
-            Timer := UserInput * 3600000 ; Convert the entered hour value to milliseconds
-            Start := A_TickCount ; Save the timer start time
-            SetTimer, ShutdownMode, %Timer% ; Start the timer
-            MsgBox, 64, Shutdown Mode Timer, The computer will shut down in %UserInput% hours.
+            Timer := UserInput * 3600000 
+            Start := A_TickCount 
+            SetTimer, ShutdownMode, %Timer% 
+            MsgBox, 64, Shutdown Mode Timer, The computer will shut down in %UserInput% hours., 20
         }
     }
 }
 Return
 ShutdownMode:
-    SetTimer, ShutdownMode, Off ; Stop the timer
+    SetTimer, ShutdownMode, Off 
     If (TimerName != "shut down") 
     {
-        Timer := 0 ; Reset the timer value
+        Timer := 0 
         Return
     }
     MsgBox, 4, , The computer will %TimerName% in 30 seconds. Do you want to %TimerName%?, 30
     IfMsgBox No
     Return
-    Shutdown, 9 ; Shut down the computer and turn off the power
+    Shutdown, 9
 Return
 #F2:: ;; Restart
-If (Timer > 0) ; If there is a previously set timer
+If (Timer > 0) 
 {
-    Elapsed := A_TickCount - Start ; The time elapsed since the timer started (milliseconds)
-    Remaining := (Timer - Elapsed) // 3600000 ; The time remaining (hours)
-    RemainingMinutes := Mod((Timer - Elapsed), 3600000) // 60000 ; The remaining minutes after hours
+    Elapsed := A_TickCount - Start 
+    Remaining := (Timer - Elapsed) // 3600000 
+    RemainingMinutes := Mod((Timer - Elapsed), 3600000) // 60000 
     MsgBox, 3, The %TimerName% timer is running,The computer will %TimerName% in %Remaining% hours and %RemainingMinutes% minutes.`n`nDo you want to cancel the timer?, 20
     IfMsgBox, Yes
     {
-        SetTimer, RestartMode, Off ; Stop the timer
-        Timer := 0 ; Reset the timer value
+        SetTimer, RestartMode, Off 
+        Timer := 0 
         ElapsedTime := Elapsed // 3600000
         ElapsedMinutes := Mod((Elapsed), 3600000) // 60000
-        MsgBox, 48, Restart Mode Timer, The %TimerName% timer was canceled with %Remaining% hours and %RemainingMinutes% minutes remaining (Elapsed %ElapsedTime% hours and %ElapsedMinutes% minutes).
+        MsgBox, 48, Restart Mode Timer, The %TimerName% timer was canceled with %Remaining% hours and %RemainingMinutes% minutes remaining (Elapsed %ElapsedTime% hours and %ElapsedMinutes% minutes)., 20
         TimerName := ""
     }
 }
-Else ; If there is no previously set timer
+Else 
 {
     InputBox, UserInput, Restart Mode Timer, How many hours do you want the computer to restart?`n,,,, Locale , 20
-    If (ErrorLevel = 0) ; If OK button is pressed
+    If (ErrorLevel = 0) 
     {
-        If (UserInput is Integer) ; If the entered value is an integer
+        If (UserInput is Integer) 
         {
             TimerName := "restart"
-            Timer := UserInput * 3600000 ; Convert the entered hour value to milliseconds
-            Start := A_TickCount ; Save the timer start time
-            SetTimer, RestartMode, %Timer% ; Start the timer
-            MsgBox, 64, Restart Mode Timer, The computer will restart in %UserInput% hours.
+            Timer := UserInput * 3600000 
+            Start := A_TickCount 
+            SetTimer, RestartMode, %Timer% 
+            MsgBox, 64, Restart Mode Timer, The computer will restart in %UserInput% hours., 20
         }
     }
 }
 Return
 RestartMode:
-    SetTimer, RestartMode, Off ; Stop the timer
+    SetTimer, RestartMode, Off 
     If (TimerName != "restart") 
     {
-        Timer := 0 ; Reset the timer value
+        Timer := 0 
         Return
     }
     MsgBox, 4, , The computer will %TimerName% in 30 seconds. Do you want to %TimerName%?, 30
     IfMsgBox No
     Return
-    Shutdown, 2 ; Restart the computer and turn off the power
+    Shutdown, 2
 Return
 #F1:: ;; Hibernate
-If (Timer > 0) ; If there is a previously set timer
+If (Timer > 0) 
 {
-    Elapsed := A_TickCount - Start ; The time elapsed since the timer started (milliseconds)
-    Remaining := (Timer - Elapsed) // 3600000 ; The time remaining (hours)
-    RemainingMinutes := Mod((Timer - Elapsed), 3600000) // 60000 ; The remaining minutes after hours
+    Elapsed := A_TickCount - Start 
+    Remaining := (Timer - Elapsed) // 3600000 
+    RemainingMinutes := Mod((Timer - Elapsed), 3600000) // 60000 
     MsgBox, 3, The %TimerName% timer is running,The computer will %TimerName% in %Remaining% hours and %RemainingMinutes% minutes.`n`nDo you want to cancel the timer?, 20
     IfMsgBox, Yes
     {
-        SetTimer, HibernateMode, Off ; Stop the timer
-        Timer := 0 ; Reset the timer value
+        SetTimer, HibernateMode, Off 
+        Timer := 0 
         ElapsedTime := Elapsed // 3600000
         ElapsedMinutes := Mod((Elapsed), 3600000) // 60000
-        MsgBox, 48, Hibernate Mode Timer, The %TimerName% timer was canceled with %Remaining% hours and %RemainingMinutes% minutes remaining (Elapsed %ElapsedTime% hours and %ElapsedMinutes% minutes).
+        MsgBox, 48, Hibernate Mode Timer, The %TimerName% timer was canceled with %Remaining% hours and %RemainingMinutes% minutes remaining (Elapsed %ElapsedTime% hours and %ElapsedMinutes% minutes)., 20
         TimerName := ""
     }
 }
-Else ; If there is no previously set timer
+Else 
 {
     InputBox, UserInput, Hibernate Mode Timer, How many hours do you want the computer to hibernate?`n,,,, Locale , 20
-    If (ErrorLevel = 0) ; If OK button is pressed
+    If (ErrorLevel = 0) 
     {
-        If (UserInput is Integer) ; If the entered value is an integer
+        If (UserInput is Integer) 
         {
             TimerName := "hibernate"
-            Timer := UserInput * 3600000 ; Convert the entered hour value to milliseconds
-            Start := A_TickCount ; Save the timer start time
-            SetTimer, HibernateMode, %Timer% ; Start the timer
-            MsgBox, 64, Hibernate Mode Timer, The computer will hibernate in %UserInput% hours.
+            Timer := UserInput * 3600000 
+            Start := A_TickCount 
+            SetTimer, HibernateMode, %Timer% 
+            MsgBox, 64, Hibernate Mode Timer, The computer will hibernate in %UserInput% hours., 20
         }
     }
 }
 Return
 HibernateMode:
-    SetTimer, HibernateMode, Off ; Stop the timer
+    SetTimer, HibernateMode, Off 
     If (TimerName != "hibernate") 
     {
-        Timer := 0 ; Reset the timer value
+        Timer := 0 
         Return
     }
     MsgBox, 4, , The computer will %TimerName% in 30 seconds. Do you want to %TimerName%?, 30
     IfMsgBox No
     Return
-    DllCall("PowrProf\SetSuspendState", "int", 1, "int", 0, "int", 0) ; Put the computer to hibernate mode
+    DllCall("PowrProf\SetSuspendState", "int", 1, "int", 0, "int", 0)
 Return
 #F6:: ;; Logout
-If (Timer > 0) ; If there is a previously set timer
+If (Timer > 0) 
 {
-    Elapsed := A_TickCount - Start ; The time elapsed since the timer started (milliseconds)
-    Remaining := (Timer - Elapsed) // 3600000 ; The time remaining (hours)
-    RemainingMinutes := Mod((Timer - Elapsed), 3600000) // 60000 ; The remaining minutes after hours
+    Elapsed := A_TickCount - Start 
+    Remaining := (Timer - Elapsed) // 3600000 
+    RemainingMinutes := Mod((Timer - Elapsed), 3600000) // 60000 
     MsgBox, 3, The %TimerName% timer is running,The computer will %TimerName% in %Remaining% hours and %RemainingMinutes% minutes.`n`nDo you want to cancel the timer?, 20
     IfMsgBox, Yes
     {
-        SetTimer, LogoutMode, Off ; Stop the timer
-        Timer := 0 ; Reset the timer value
+        SetTimer, LogoutMode, Off 
+        Timer := 0 
         ElapsedTime := Elapsed // 3600000
         ElapsedMinutes := Mod((Elapsed), 3600000) // 60000
-        MsgBox, 48, Logout Mode Timer, The %TimerName% timer was canceled with %Remaining% hours and %RemainingMinutes% minutes remaining (Elapsed %ElapsedTime% hours and %ElapsedMinutes% minutes).
+        MsgBox, 48, Logout Mode Timer, The %TimerName% timer was canceled with %Remaining% hours and %RemainingMinutes% minutes remaining (Elapsed %ElapsedTime% hours and %ElapsedMinutes% minutes)., 20
         TimerName := ""
     }
 }
-Else ; If there is no previously set timer
+Else 
 {
     InputBox, UserInput, Logout Mode Timer, How many hours do you want the computer to log out?`n,,,, Locale , 20
-    If (ErrorLevel = 0) ; If OK button is pressed
+    If (ErrorLevel = 0) 
     {
-        If (UserInput is Integer) ; If the entered value is an integer
+        If (UserInput is Integer) 
         {
             TimerName := "log out"
-            Timer := UserInput * 3600000 ; Convert the entered hour value to milliseconds
-            Start := A_TickCount ; Save the timer start time
-            SetTimer, LogoutMode, %Timer% ; Start the timer
-            MsgBox, 64, Logout Mode Timer, The computer will log out in %UserInput% hours.
+            Timer := UserInput * 3600000 
+            Start := A_TickCount 
+            SetTimer, LogoutMode, %Timer% 
+            MsgBox, 64, Logout Mode Timer, The computer will log out in %UserInput% hours., 20
         }
     }
 }
 Return
 LogoutMode:
-    SetTimer, LogoutMode, Off ; Stop the timer
+    SetTimer, LogoutMode, Off 
     If (TimerName != "log out") 
     {
-        Timer := 0 ; Reset the timer value
+        Timer := 0 
         Return
     }
     MsgBox, 4, , The computer will %TimerName% in 30 seconds. Do you want to %TimerName%?, 30
     IfMsgBox No
     Return
-    Shutdown, 0 ; Log out of the current user session
+    Shutdown, 0
+Return
+
+screenIsOn := False
+#F12::
+While(!screenIsOn & !GetKeyState("Escape", "P"))
+{	
+    Sleep, 250
+    SendMessage,0x112,0xF170,2,,Program Manager
+    Sleep, 250
+}
+screenIsOn := !screenIsOn
+Sleep, 2000
 Return
 
 ;; Reset Ip --------------------------------------------------
@@ -438,15 +456,72 @@ Return
 #If
 
 ;; Mouse --------------------------------------------------
-AppsKey:: MButton
+
+RCtrl & Z::
+Send {LButton}
+Send {LButton Down}
+KeyWait, Z
+Send {LButton Up}
+return
+RCtrl & C::
+Send {RButton}
+Send {RButton Down}
+KeyWait, C
+Send {RButton Up}
+return
+RCtrl & X::
+Send {MButton Down}
+KeyWait, X
+Send {MButton Up}
+Send {MButton}
+return
+AppsKey::MButton
+
 !Up::Send {WheelUp}
 !Down::Send {WheelDown}
-!Left::Send {WheelLeft}
-!Right::Send {WheelRight}
+
+RCtrl & Up::
+    MouseSpeed += 3
+    MouseMove, 0, -MouseSpeed, 0, R
+    MouseSpeed += 1
+    Return
+RCtrl & Down::
+    MouseSpeed += 3
+    MouseMove, 0, MouseSpeed, 0, R
+    MouseSpeed += 1
+    Return
+RCtrl & Left::
+    MouseSpeed += 3
+    MouseMove, -MouseSpeed, 0, 0, R
+    MouseSpeed += 2
+    Return
+RCtrl & Right::
+    MouseSpeed += 3
+    MouseMove, MouseSpeed, 0, 0, R
+    MouseSpeed += 2
+    Return
+RCtrl & Up Up::
+    MouseSpeed := 0 
+    Return
+RCtrl & Down Up::
+    MouseSpeed := 0 
+    Return
+RCtrl & Left Up::
+    MouseSpeed := 0 
+    Return
+RCtrl & Right Up::
+    MouseSpeed := 0 
+    Return
+#If
+
+RCtrl & M::
+  CoordMode, Mouse, Screen
+  MouseMove, (A_ScreenWidth // 2), (A_ScreenHeight // 2)
+Return
 
 ; Show the shortcuts --------------------------------------------------
 HelpLabel:
-hotkeyInfo := "Hey Quick Keyboard v1.0`nWin + CapsLock to toggle it on or off`n`n"
+hotkeyInfo := "Win + CapsLock to toggle it on or off`n`n"
 ; Numpad
 hotkeyInfo .= "Numpad`n"
 hotkeyInfo .= "!(Shift | Win | AltGr) + 0-9 = Numpad 0-9`n"
@@ -468,6 +543,8 @@ hotkeyInfo .= "PrtSc = Win + PrtSc`n"
 hotkeyInfo .= "Ctrl + PrtSc = PrtSc`n`n"
 ; Windows
 hotkeyInfo .= "Windows`n"
+hotkeyInfo .= "Win + F = Quick Google Search`n"
+hotkeyInfo .= "Win + T = Quick Google Translate`n"
 hotkeyInfo .= "Ctrl + Alt + F4 Kill active window`n"
 hotkeyInfo .= "Win + F5 Restart Explorer`n`n"
 ; Power
@@ -476,11 +553,17 @@ hotkeyInfo .= "Win + F1 Hibernate Timer`n"
 hotkeyInfo .= "Win + F2 Restart Timer`n"
 hotkeyInfo .= "Win + F3 Sleep Timer`n"
 hotkeyInfo .= "Win + F4 Shutdown Timer`n"
-hotkeyInfo .= "Win + F6 Logout Timer`n`n"
+hotkeyInfo .= "Win + F6 Logout Timer`n"
+hotkeyInfo .= "Win + F12 Turn off the display`n`n"
 ; Mouse
 hotkeyInfo .= "Mouse`n"
 hotkeyInfo .= "Menu Key = Middle Click`n"
-hotkeyInfo .= "Left Alt + Arrow Keys = Scroll Wheel`n"
-MsgBox, %hotkeyInfo%`nDeveloped by Halil Emre Yildiz`nGithub: @JahnStar
+hotkeyInfo .= "Right Ctrl + Arrows = Mouse movement`n"
+hotkeyInfo .= "Right Ctrl + M = Move cursor in the middle`n"
+hotkeyInfo .= "Right Ctrl + Z = Left Click`n"
+hotkeyInfo .= "Right Ctrl + Y = Middle Click`n"
+hotkeyInfo .= "Right Ctrl + C = Right Click`n"
+hotkeyInfo .= "Left Alt + Up/Down Arrow = Scroll Wheel`n"
+MsgBox, 64, Hey Quick Keyboard v1.1, %hotkeyInfo%`nDeveloped by Halil Emre Yildiz`nGithub: @JahnStar, 20
 Run, https://github.com/JahnStar/Hey-Quick-Keyboard/
 return

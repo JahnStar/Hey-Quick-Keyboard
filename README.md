@@ -1,4 +1,4 @@
-# Hey Quick Keyboard
+# Hey Quick Keyboard v1.1
 
 Hey Quick Keyboard is an AutoHotkey script that adds useful shortcuts and improves computer usability on Windows. With this script, you can use the numpad keys, tab keys, screenshot key, power keys, mouse keys, and more with different key combinations on your keyboard. For laptop users, it allows effortless navigation in 3D modeling software through keyboard shortcuts that simulate mouse middle-click and numpad functions.
 
@@ -14,7 +14,7 @@ Hey Quick Keyboard is an AutoHotkey script that adds useful shortcuts and improv
 - To take a screenshot of the entire screen and saves it to the Pictures\Screenshots folder, you can use PrtSc. And Ctrl + PrtSc takes a screenshot and copies it to the clipboard.
 - For Windows operations, Ctrl + Alt + F4 force quit the active window, Win + F5 restarts Explorer and clears temp files.
 - For power operations, Win + F1 opens hibernate timer, Win + F2 opens restart timer, Win + F3 opens sleep timer, Win + F4 opens shutsdown timer and Win + F6 opens logout timer.
-- For mouse operations, you can use the Menu Key as a middle click and use Left Alt + arrow keys as a scroll wheel.
+- For mouse operations, you can use the Menu Key as a middle click and Left Alt + arrow keys as a scroll wheel for mouse operations. To move the mouse, use RCtrl + Arrows. To click, use RCtrl + Z for left click, RCtrl + Y for middle click, and RCtrl + C for right click.
 
 ## Installation
 
@@ -45,9 +45,12 @@ You can find all the shortcuts that this script provides in the [Shortcuts](#sho
 | PrtSc | Win + PrtSc | Take a screenshot and save it in the Pictures folder |
 | Ctrl + PrtSc | PrtSc | Take a screenshot and copy it to the clipboard |
 | **Windows** | Manage windows or tasks | Close, restart, or clear windows or processes |
+| Win + F | Quick Search | Search selected text on google |
+| Win + T | Quick Translate | Translate selected text with google translate |
 | Ctrl + Alt + F4 | Taskkill | Force quit the current window or application |
 | Win + F5 | Restart Explorer | Restart the Explorer to refresh the desktop and taskbar |
 | Win + F5 (As Admin) | Clear Temp Files (As Admin) | Delete temporary files with [Clear-TempFiles.ps1](https://github.com/Bromeego/Clean-Temp-Files/) |
+| Win + 12 | Turn off the display | Turn screen off even when pressing ESC |
 | **Power Timer** | Set a timer for power options  | Apply power actions after a specific time |
 | Win + F1 | Hibernate Timer | Set a timer to Hibernate after a specified time |
 | Win + F2 | Restart Timer | Set a timer to Restart after a specified time |
@@ -55,8 +58,12 @@ You can find all the shortcuts that this script provides in the [Shortcuts](#sho
 | Win + F4 | Shutdown Timer | Set a timer to Shutdown after a specified time |
 | Win + F6 | Logout Timer | Set a timer to Logout after a specified time |
 | **Mouse** | Emulate the mouse buttons or wheel | Click or scroll with the keyboard |
-| Menu Key | Middle Click | Perform a middle click with the keyboard |
-| Alt + Arrow Keys | Scroll Wheel |	Scroll up, down, left, or right with the keyboard |
+| RCtrl + Arrows | Mouse movement | Move the mouse cursor with the arrow keys |
+| RCtrl + M | Jump to the Middle | Move the mouse cursor in the middle |
+| RCtrl + Z | Left Click | Perform a mouse left click |
+| RCtrl + Y / Menu Key | Middle Click | Perform a mouse middle click |
+| RCtrl + C | Right Click | Perform a mouse right click |
+| Alt + Up/Down Arrow | Scroll Wheel | Scroll up or down |
 
 ## Contact
 
