@@ -482,13 +482,11 @@ Return
 ;; Mouse --------------------------------------------------
 
 RCtrl & Z::
-Send {LButton}
 Send {LButton Down}
 KeyWait, Z
 Send {LButton Up}
 return
 RCtrl & C::
-Send {RButton}
 Send {RButton Down}
 KeyWait, C
 Send {RButton Up}
@@ -497,7 +495,6 @@ RCtrl & X::
 Send {MButton Down}
 KeyWait, X
 Send {MButton Up}
-Send {MButton}
 return
 AppsKey::MButton
 
