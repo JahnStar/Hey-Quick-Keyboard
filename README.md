@@ -14,7 +14,10 @@ Hey Quick Keyboard is an AutoHotkey script that adds useful shortcuts and improv
 - To take a screenshot of the entire screen and saves it to the Pictures\Screenshots folder, you can use PrtSc. And Ctrl + PrtSc takes a screenshot and copies it to the clipboard.
 - For Windows operations, Ctrl + Alt + F4 force quit the active window, Win + F5 restarts Explorer and clears temp files.
 - For power operations, Win + F1 opens hibernate timer, Win + F2 opens restart timer, Win + F3 opens sleep timer, Win + F4 opens shutsdown timer and Win + F6 opens logout timer.
-- For mouse operations, you can use the Menu Key as a middle click and Left Alt + arrow keys as a scroll wheel for mouse operations. To move the mouse, use RCtrl + Arrows. To click, use RCtrl + Z for left click, RCtrl + Y for middle click, and RCtrl + C for right click.
+- For mouse operations, you can use the Menu Key as a middle click and Left Alt + arrow keys as a scroll wheel for mouse operations.
+- To move the mouse, use RCtrl + Arrows. To click, use RCtrl + Z for left click, RCtrl + Y for middle click, and RCtrl + C for right click.
+- You can quick search with Win + F and quick translate with Win + T.
+- You can turn off the screen witg Win + F12 and turn it on with ESC.
 
 ## Installation
 
