@@ -14,10 +14,7 @@ Hey Quick Keyboard is an AutoHotkey script that adds useful shortcuts and improv
 - To take a screenshot of the entire screen and saves it to the Pictures\Screenshots folder, you can use PrtSc. And Ctrl + PrtSc takes a screenshot and copies it to the clipboard.
 - For Windows operations, Ctrl + Alt + F4 force quit the active window, Win + F5 restarts Explorer and clears temp files.
 - For power operations, Win + F1 opens hibernate timer, Win + F2 opens restart timer, Win + F3 opens sleep timer, Win + F4 opens shutsdown timer and Win + F6 opens logout timer.
-- For mouse operations, you can use the Menu Key as a middle click and Left Alt + arrow keys as a scroll wheel for mouse operations.
-- To move the mouse, use RCtrl + Arrows. To click, use RCtrl + Z for left click, RCtrl + Y for middle click, and RCtrl + C for right click.
-- You can quick search with Win + F and quick translate with Win + T.
-- You can turn off the screen witg Win + F12 and turn it on with ESC.
+- For mouse operations, you can use the Menu Key as a middle click and Left Alt + arrow keys as a scroll wheel for mouse operations. To move the mouse, use RCtrl + Arrows. To click, use RCtrl + Z for left click, RCtrl + Y for middle click, and RCtrl + C for right click.
 
 ## Installation
 
@@ -53,8 +50,9 @@ You can find all the shortcuts that this script provides in the [Shortcuts](#sho
 | Ctrl + Alt + F4 | Taskkill | Force quit the current window or application |
 | Win + F5 | Restart Explorer | Restart the Explorer to refresh the desktop and taskbar |
 | Win + F5 (As Admin) | Clear Temp Files (As Admin) | Delete temporary files with [Clear-TempFiles.ps1](https://github.com/Bromeego/Clean-Temp-Files/) |
-| Win + 12 | Turn off the display | Turn screen off even when pressing ESC |
-| **Power Timer** | Set a timer for power options  | Apply power actions after a specific time |
+| Win + 12 | Turn off the display | Lock and turn screen off |
+| Win + ESC | Turn on the display | Unlock and turn screen on |
+| **Power** | Set a timer for power options  | Apply power actions after a specific time |
 | Win + F1 | Hibernate Timer | Set a timer to Hibernate after a specified time |
 | Win + F2 | Restart Timer | Set a timer to Restart after a specified time |
 | Win + F3 | Sleep Timer | Set a timer to Sleep after a specified time |

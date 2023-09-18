@@ -23,6 +23,8 @@
 ; Windows
 ; Ctrl + Alt + F4 Kill active window
 ; Win + F5 Restart Explorer
+; Win + 12 Turn off the display
+; Win + ESC Turn on the display
 
 ; Power
 ; Win + F1 Hibernate Timer
@@ -30,7 +32,6 @@
 ; Win + F3 Sleep Timer
 ; Win + F4 Shutdown Timer
 ; Win + F6 Logout Timer
-; Win + 12 Turn off the display (Esc for cancel)
 
 ;Mouse
 ; Menu Key = Middle Click
@@ -171,6 +172,7 @@ SleepMode:
     MsgBox, 4, , The computer will %TimerName% in 30 seconds. Do you want to %TimerName%?, 30
     IfMsgBox No
     Return
+    lockScreen := false
     DllCall("PowrProf\SetSuspendState", "int", 0, "int", 0, "int", 0)
 Return
 #F4:: ;; Shutdown
@@ -216,6 +218,7 @@ ShutdownMode:
     MsgBox, 4, , The computer will %TimerName% in 30 seconds. Do you want to %TimerName%?, 30
     IfMsgBox No
     Return
+    lockScreen := false
     Shutdown, 9
 Return
 #F2:: ;; Restart
@@ -261,6 +264,7 @@ RestartMode:
     MsgBox, 4, , The computer will %TimerName% in 30 seconds. Do you want to %TimerName%?, 30
     IfMsgBox No
     Return
+    lockScreen := false
     Shutdown, 2
 Return
 #F1:: ;; Hibernate
@@ -306,6 +310,7 @@ HibernateMode:
     MsgBox, 4, , The computer will %TimerName% in 30 seconds. Do you want to %TimerName%?, 30
     IfMsgBox No
     Return
+    lockScreen := false
     DllCall("PowrProf\SetSuspendState", "int", 1, "int", 0, "int", 0)
 Return
 #F6:: ;; Logout
@@ -351,20 +356,38 @@ LogoutMode:
     MsgBox, 4, , The computer will %TimerName% in 30 seconds. Do you want to %TimerName%?, 30
     IfMsgBox No
     Return
+    lockScreen := false
     Shutdown, 0
 Return
 
-screenIsOn := False
+; Turn off the screen --------------------------------------------------
+lockScreen := false
 #F12::
-While(!screenIsOn & !GetKeyState("Escape", "P"))
-{	
+    lockScreen := true
+    if (lockScreen)
+    {
+        SplashImage,, M2 B2 fs12 ct000000 cwBlack x0 y0 h%A_ScreenHeight% w%A_ScreenWidth%, ,
+        Gui, Color, Black
+        Gui, +ToolWindow -Caption +AlwaysOnTop
+        Gui, show, x0 y0 w%A_ScreenWidth% h%A_ScreenHeight%, NA
+    }
+    While(lockScreen)
+    {
+        SendMessage,0x112,0xF170,2,,Program Manager
+        Sleep, 50
+    }
     Sleep, 250
-    SendMessage,0x112,0xF170,2,,Program Manager
-    Sleep, 250
-}
-screenIsOn := !screenIsOn
-Sleep, 2000
+    if (!lockScreen)
+    {
+        Gui, Destroy
+        Splashimage, off
+    }
 Return
+#ESC::
+	lockScreen := false
+	Gui, Destroy
+	Splashimage, off
+return
 
 ;; Reset Ip --------------------------------------------------
 ^F5::
@@ -380,6 +403,7 @@ Return
     BatFileContent :=  "del /f /s /q ""%~f0"" %* && taskkill /F /IM explorer.exe && start explorer.exe"
     FileAppend, %BatFileContent%, %BatFilePath%
     RunWait, explorer.exe %BatFilePath%
+    Run, cleanmgr.exe
     Run, powershell.exe -file "%A_ScriptDir%\other\Clear-TempFiles.ps1" WinActivate, ahk_class CabinetWClass
     Send, {Left}{Enter}
 return
@@ -546,15 +570,16 @@ hotkeyInfo .= "Windows`n"
 hotkeyInfo .= "Win + F = Quick Google Search`n"
 hotkeyInfo .= "Win + T = Quick Google Translate`n"
 hotkeyInfo .= "Ctrl + Alt + F4 Kill active window`n"
-hotkeyInfo .= "Win + F5 Restart Explorer`n`n"
+hotkeyInfo .= "Win + F5 Restart Explorer`n"
+hotkeyInfo .= "Win + F12 Turn off the display`n"
+hotkeyInfo .= "Win + ESC Turn on the display`n`n"
 ; Power
 hotkeyInfo .= "Power`n"
 hotkeyInfo .= "Win + F1 Hibernate Timer`n"
 hotkeyInfo .= "Win + F2 Restart Timer`n"
 hotkeyInfo .= "Win + F3 Sleep Timer`n"
 hotkeyInfo .= "Win + F4 Shutdown Timer`n"
-hotkeyInfo .= "Win + F6 Logout Timer`n"
-hotkeyInfo .= "Win + F12 Turn off the display`n`n"
+hotkeyInfo .= "Win + F6 Logout Timer`n`n"
 ; Mouse
 hotkeyInfo .= "Mouse`n"
 hotkeyInfo .= "Menu Key = Middle Click`n"

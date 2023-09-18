@@ -400,7 +400,6 @@ Function Cleanup {
     # Open Text File
 	############################ Invoke-Item $Cleanuplog
 
-    Start-Process cleanmgr.exe
 (Get-Process cleanmgr).MainWindowHandle | ForEach-Object { [void] [System.Runtime.InteropServices.Marshal]::SetForegroundWindow($_) }
 
     # Stop Script
