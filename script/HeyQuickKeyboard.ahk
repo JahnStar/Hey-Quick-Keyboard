@@ -40,7 +40,7 @@
 ; Right Ctrl + Z = Left Click
 ; Right Ctrl + Y = Middle Click
 ; Right Ctrl + C = Right Click
-; Left Alt + Up/Down Arrow = Scroll Wheel
+; Ctrl + Left Alt + Up/Down Arrow = Scroll Wheel
 
 ; ==============================================================================================================================================================================================
 #NoEnv
@@ -60,7 +60,6 @@ update_traytip()
 	if (A_IsSuspended)
     {
         Menu, Tray, Icon, Icon-disabled.ico, , 1
-        SoundPlay, *16
         SplashImage,, M1 b fs12 cteb2a2a cwWhite x25 y25 w200, Disabled, Hey Quick Keyboard
         sleep, 1000
         Splashimage, off
@@ -68,7 +67,6 @@ update_traytip()
 	else
     {
         Menu, Tray, Icon, Icon.ico, , 1
-        SoundPlay, *48
         SplashImage,, M1 b fs12 ct009c1c cwWhite x25 y25 w200, Enabled, Hey Quick Keyboard
         sleep, 1000
         Splashimage, off
@@ -78,6 +76,7 @@ update_traytip()
     Return
 }
 update_traytip()
+get_mouse_position()
 
 Menu, Tray, Add, Run on Startup, TrayRunStartup
 Menu, Tray, Default, Run on Startup
@@ -498,8 +497,8 @@ Send {MButton Up}
 return
 AppsKey::MButton
 
-!Up::Send {WheelUp}
-!Down::Send {WheelDown}
+^!Up::Send {WheelUp}
+^!Down::Send {WheelDown}
 
 RCtrl & Up::
     MouseSpeed += 3
@@ -539,6 +538,38 @@ RCtrl & M::
   CoordMode, Mouse, Screen
   MouseMove, (A_ScreenWidth // 2), (A_ScreenHeight // 2)
 Return
+
+; If mouse position is on bottom left, simulate LWin
+get_mouse_position(){
+    CoordMode, Mouse, Screen
+    MouseGetPos, x, y
+    if (x < 10) ; x >= A_ScreenWidth
+    {
+        if (y >= A_ScreenHeight)
+        {
+            Send, {LWin}
+            sleep, 1000
+        }
+    }
+    sleep, 50
+Return
+}
+; If left button clicked and mouse position is on bottom right, simulate LWin+M. If else left button clicked and mouse position is on top left, simulate LWin+Tab.
+~RButton::
+{
+    CoordMode, Mouse, Screen
+    MouseGetPos, x, y
+    if (x >= A_ScreenWidth && y >= A_ScreenHeight) 
+    {
+        Send {LWin Down}m{LWin Up}
+    }
+    else if (x < 10 && y < 10) 
+    {
+        Send {LWin Down}{Tab}{LWin Up}
+    }
+    sleep, 50
+    Return
+}
 
 ; Show the shortcuts --------------------------------------------------
 HelpLabel:
@@ -585,7 +616,7 @@ hotkeyInfo .= "Right Ctrl + M = Move cursor in the middle`n"
 hotkeyInfo .= "Right Ctrl + Z = Left Click`n"
 hotkeyInfo .= "Right Ctrl + Y = Middle Click`n"
 hotkeyInfo .= "Right Ctrl + C = Right Click`n"
-hotkeyInfo .= "Left Alt + Up/Down Arrow = Scroll Wheel`n"
+hotkeyInfo .= "Ctrl + Left Alt + Up/Down Arrow = Scroll Wheel`n"
 MsgBox, 64, Hey Quick Keyboard v1.1, %hotkeyInfo%`nDeveloped by Halil Emre Yildiz`nGithub: @JahnStar, 20
 Run, https://github.com/JahnStar/Hey-Quick-Keyboard/
 return

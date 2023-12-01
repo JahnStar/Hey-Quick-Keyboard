@@ -25,7 +25,7 @@ To run this script, you just need to execute the "HeyQuickKeyboard.exe". If you 
 
 You can find all the shortcuts that this script provides in the [Shortcuts](#shortcuts) section below. You can also quickize or change any of these shortcuts by editing the script file with a text editor and compile with [Ahk2Exe](https://github.com/AutoHotkey/Ahk2Exe).
 
-## Shortcuts
+## Hotkeys
 
 | Key Combination | Function | Action |
 | --------------- | -------- | ------ |
@@ -65,7 +65,7 @@ You can find all the shortcuts that this script provides in the [Shortcuts](#sho
 | RCtrl + Z | Left Click | Perform a mouse left click |
 | RCtrl + Y / Menu Key | Middle Click | Perform a mouse middle click |
 | RCtrl + C | Right Click | Perform a mouse right click |
-| Alt + Up/Down Arrow | Scroll Wheel | Scroll up or down |
+| Ctrl + Alt + Up/Down Arrow | Scroll Wheel | Scroll up or down |
 
 ## Contact
 
