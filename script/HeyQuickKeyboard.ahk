@@ -1,5 +1,8 @@
-; Developed by Halil Emre Yildiz (Github: @JahnStar)
-; Hey Quick Keyboard
+;***************************************************************************************************
+; Script:  Hey Quick Keyboard v1.2 (29.12.2023)
+; Author: Halil Emre Yildiz
+; GitHub: @JahnStar
+;***************************************************************************************************
 ; Win + CapsLock to toggle it on or off
 
 ; Numpad
@@ -55,7 +58,7 @@ Suspend, Off
 
 update_traytip()
 {
-    tray_text := "Hey Quick Keyboard v1.1`nAuthor: @JahnStar (Github)`n`nToggle with Win + CapsLock"
+    tray_text := "Hey Quick Keyboard v1.2`nAuthor: @JahnStar (Github)`n`nToggle with Win + CapsLock"
 
 	if (A_IsSuspended)
     {
@@ -76,7 +79,6 @@ update_traytip()
     Return
 }
 update_traytip()
-get_mouse_position()
 
 Menu, Tray, Add, Run on Startup, TrayRunStartup
 Menu, Tray, Default, Run on Startup
@@ -104,6 +106,8 @@ else
         Menu, Tray, Check, Run on Startup
     }
 }
+;; Loops
+get_mouse_position()
 Return
 
 ; - Ctrl + CapsLock ---------------------------------
@@ -441,8 +445,36 @@ Return
     Clipboard :=
 Return
 
-;; Numpad with numerics  --------------------------------------------------
+;; Ask AI --------------------------------------------------
+#C::
+    AutoTrim, Off
+    Clipboard := "" ; clear the clipboard
+    Send, ^c
+    ClipWait, 0
+    if (!ErrorLevel) ; if there is something in the clipboard
+    {
+        prompt = %clipboard%
+        Run, "%A_ScriptDir%\other\hey-chat-vbs\Hey-Chat-VBS.vbs"
+        Sleep, 500
+        if (StrLen(prompt) > 100) 
+            Send, ^v
+        else 
+            Send, %prompt%
+    }
+    else Run, "%A_ScriptDir%\other\hey-chat-vbs\Hey-Chat-VBS.vbs"
+Return
 
+;; Text To Speech --------------------------------------------------
+#S::
+    AutoTrim, Off
+    Send, ^c
+    ClipWait, 100
+    Sleep, 400
+    Run, wscript.exe "%A_ScriptDir%\tts.vbs" "%Clipboard%"
+Return
+
+;; Numpad with numerics  --------------------------------------------------
+  
     RAlt & .::Send {NumpadDot}
     LAlt & .::Send {NumpadDot}
     LAlt & *::Send {NumpadMult}
@@ -542,16 +574,19 @@ Return
 ; If mouse position is on bottom left, simulate LWin
 get_mouse_position(){
     CoordMode, Mouse, Screen
-    MouseGetPos, x, y
-    if (x < 10) ; x >= A_ScreenWidth
+    loop
     {
-        if (y >= A_ScreenHeight)
+        MouseGetPos, x, y
+        if (x < 10) ; x >= A_ScreenWidth - 10
         {
-            Send, {LWin}
-            sleep, 1000
+            if (y >= A_ScreenHeight - 10)
+            {
+                Send, {LWin}
+                sleep, 1000
+            }
         }
+        sleep, 50
     }
-    sleep, 50
 Return
 }
 ; If left button clicked and mouse position is on bottom right, simulate LWin+M. If else left button clicked and mouse position is on top left, simulate LWin+Tab.
@@ -559,7 +594,7 @@ Return
 {
     CoordMode, Mouse, Screen
     MouseGetPos, x, y
-    if (x >= A_ScreenWidth && y >= A_ScreenHeight) 
+    if (x >= A_ScreenWidth - 10 && y >= A_ScreenHeight - 10) 
     {
         Send {LWin Down}m{LWin Up}
     }
@@ -597,6 +632,8 @@ hotkeyInfo .= "Ctrl + PrtSc = PrtSc`n`n"
 hotkeyInfo .= "Windows`n"
 hotkeyInfo .= "Win + F = Quick Google Search`n"
 hotkeyInfo .= "Win + T = Quick Google Translate`n"
+hotkeyInfo .= "Win + C = Quick AI Chatbot`n"
+hotkeyInfo .= "Win + S = Text to Speech`n"
 hotkeyInfo .= "Ctrl + Alt + F4 Kill active window`n"
 hotkeyInfo .= "Win + F5 Restart Explorer`n"
 hotkeyInfo .= "Win + F12 Turn off the display`n"
@@ -617,6 +654,6 @@ hotkeyInfo .= "Right Ctrl + Z = Left Click`n"
 hotkeyInfo .= "Right Ctrl + Y = Middle Click`n"
 hotkeyInfo .= "Right Ctrl + C = Right Click`n"
 hotkeyInfo .= "Ctrl + Left Alt + Up/Down Arrow = Scroll Wheel`n"
-MsgBox, 64, Hey Quick Keyboard v1.1, %hotkeyInfo%`nDeveloped by Halil Emre Yildiz`nGithub: @JahnStar, 20
+MsgBox, 64, Hey Quick Keyboard v1.2, %hotkeyInfo%`nDeveloped by Halil Emre Yildiz`nGithub: @JahnStar, 20
 Run, https://github.com/JahnStar/Hey-Quick-Keyboard/
 return
