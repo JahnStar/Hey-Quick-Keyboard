@@ -577,7 +577,7 @@ get_mouse_position(){
     loop
     {
         MouseGetPos, x, y
-        if (x < 10) ; x >= A_ScreenWidth - 10
+        if (!A_IsSuspended && x < 10) ; x >= A_ScreenWidth - 10
         {
             if (y >= A_ScreenHeight - 10)
             {
