@@ -51,6 +51,9 @@
 SendMode Input
 SetWorkingDir %A_ScriptDir%
 
+#InstallKeybdHook
+LWin::return
+AppsKey::LWin
 ; Global variable to store the startup state ------------------------------
 
 SetNumLockState, On
@@ -527,7 +530,7 @@ Send {MButton Down}
 KeyWait, X
 Send {MButton Up}
 return
-AppsKey::MButton
+Home::MButton
 
 ^!Up::Send {WheelUp}
 ^!Down::Send {WheelDown}
