@@ -17,6 +17,7 @@ Hey Quick Keyboard is an AutoHotkey script that adds useful shortcuts and improv
 - For mouse operations, you can use the Menu Key as a middle click and Left Alt + arrow keys as a scroll wheel for mouse operations. To move the mouse, use RCtrl + Arrows. To click, use RCtrl + Z for left click, RCtrl + Y for middle click, and RCtrl + C for right click.
 - You can turn off the screen witg Win + F12 and turn it on with Win + ESC.
 - You can quickly ask questions to the AI ​​with Windows + C via [Hey Chat VBS](https://github.com/JahnStar/Hey-Chat-VBS) and play a role in MsgBox.
+- Added hot corners for desktops and apps.
 
 ## Installation
 

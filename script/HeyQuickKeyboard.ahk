@@ -1,5 +1,5 @@
 ;***************************************************************************************************
-; Script:  Hey Quick Keyboard v1.2 (3.2.2024)
+; Script:  Hey Quick Keyboard v1.3 (14.4.2024) (brightness & volume hot corners - not compiled)
 ; Author: Halil Emre Yildiz
 ; GitHub: @JahnStar
 ;***************************************************************************************************
@@ -582,15 +582,62 @@ get_mouse_position(){
             if (y >= A_ScreenHeight - 10)
             {
                 Send, {LWin}
-                sleep, 1000
+                sleep, 4000
             }
         }
         sleep, 50
     }
 Return
 }
+; Top right hot corner - volume up
+; Top left hot corner - brightness up
+~WheelUp::
+    CoordMode, Mouse, Screen
+    MouseGetPos, x, y
+	; Brightness up
+	if (x >= A_ScreenWidth - 10 && y < 10) 
+    {
+        SoundSet, +10
+    }
+	else if (x < 10 && y < 10) 
+    {
+		ChangeBrightness( CurrentBrightness += 20 )
+    }
+	sleep, 50
+Return
+; Top right hot corner - volume down
+; Top left hot corner - brightness down
+~WheelDown::
+    CoordMode, Mouse, Screen
+    MouseGetPos, x, y
+	if (x >= A_ScreenWidth - 10 && y < 10)  
+    {
+        SoundSet, -10
+    }
+	else if (x < 10 && y < 10) 
+    {
+        ChangeBrightness( CurrentBrightness -= 20 )
+    }
+	sleep, 50
+Return
+ChangeBrightness( ByRef brightness, timeout = 1 )
+{
+	if ( brightness > -20 && brightness < 120 )
+	{
+		For property in ComObjGet( "winmgmts:\\.\root\WMI" ).ExecQuery( "SELECT * FROM WmiMonitorBrightnessMethods" )
+			property.WmiSetBrightness( timeout, brightness )	
+	}
+ 	else if ( brightness >= 120 )
+ 	{
+ 		brightness := 120
+ 	}
+ 	else if ( brightness <= -20 )
+ 	{
+ 		brightness := -20
+ 	}
+}
 ; If left button clicked and mouse position is on bottom right, simulate LWin+M. If else left button clicked and mouse position is on top left, simulate LWin+Tab.
-~RButton::
+~LButton::
 {
     CoordMode, Mouse, Screen
     MouseGetPos, x, y
@@ -602,6 +649,10 @@ Return
     {
         Send {LWin Down}{Tab}{LWin Up}
     }
+	else if (x < 10 && y >= A_ScreenHeight - 10)
+	{
+		Send {LWin Down}{Tab}{LWin Up}
+	}
     sleep, 50
     Return
 }
