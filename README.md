@@ -72,6 +72,11 @@ You can find all the shortcuts that this script provides in the [Shortcuts](#sho
 | Ctrl + Alt + Up/Down Arrow | Scroll Wheel | Scroll up or down |
 |  |  |  |
 
+### Note
+
+HeyQuickKeyboard.exe is not a virus: Defender may flag the compiled .exe as a virus due to the nature of AutoHotkey scripts.
+To verify, compile from the .ahk using AHK2Exe.
+
 ## Contact
 
 If you have any questions, suggestions or feedback about this script, please contact me on [Github].
