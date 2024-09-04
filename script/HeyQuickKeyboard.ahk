@@ -58,7 +58,7 @@ Suspend, Off
 
 update_traytip()
 {
-    tray_text := "Hey Quick Keyboard v1.2`nAuthor: @JahnStar (Github)`n`nToggle with Win + CapsLock"
+    tray_text := "Hey Quick Keyboard v1.2.2`nAuthor: @JahnStar (Github)`n`nToggle with Win + CapsLock"
 
 	if (A_IsSuspended)
     {
@@ -572,7 +572,8 @@ RCtrl & M::
 Return
 
 ; If mouse position is on bottom left, simulate LWin
-get_mouse_position(){
+get_mouse_position()
+{
     CoordMode, Mouse, Screen
     loop
     {
@@ -581,7 +582,7 @@ get_mouse_position(){
         {
             if (y >= A_ScreenHeight - 10)
             {
-                Send, {LWin}
+                ;Send, {LWin}
                 sleep, 4000
             }
         }
@@ -641,14 +642,17 @@ ChangeBrightness( ByRef brightness, timeout = 1 )
 {
     CoordMode, Mouse, Screen
     MouseGetPos, x, y
+	; right bottom
     if (x >= A_ScreenWidth - 10 && y >= A_ScreenHeight - 10) 
     {
-        Send {LWin Down}m{LWin Up}
+;        Send {LWin Down}m{LWin Up}
     }
+	; left top
     else if (x < 10 && y < 10) 
     {
-        Send {LWin Down}{Tab}{LWin Up}
+;        Send {LWin Down}{Tab}{LWin Up}
     }
+	; left bottom
 	else if (x < 10 && y >= A_ScreenHeight - 10)
 	{
 		Send {LWin Down}{Tab}{LWin Up}
@@ -705,6 +709,6 @@ hotkeyInfo .= "Right Ctrl + Z = Left Click`n"
 hotkeyInfo .= "Right Ctrl + Y = Middle Click`n"
 hotkeyInfo .= "Right Ctrl + C = Right Click`n"
 hotkeyInfo .= "Ctrl + Left Alt + Up/Down Arrow = Scroll Wheel`n"
-MsgBox, 64, Hey Quick Keyboard v1.2, %hotkeyInfo%`nDeveloped by Halil Emre Yildiz`nGithub: @JahnStar, 20
+MsgBox, 64, Hey Quick Keyboard v1.2.2, %hotkeyInfo%`nDeveloped by Halil Emre Yildiz`nGithub: @JahnStar, 20
 Run, https://github.com/JahnStar/Hey-Quick-Keyboard/
 return
