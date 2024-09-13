@@ -67,7 +67,7 @@ You can find all the shortcuts that this script provides in the [Shortcuts](#sho
 | RCtrl + Arrows | Mouse movement | Move the mouse cursor with the arrow keys |
 | RCtrl + M | Jump to the Middle | Move the mouse cursor in the middle |
 | RCtrl + Z | Left Click | Perform a mouse left click |
-| RCtrl + Y / Menu Key | Middle Click | Perform a mouse middle click |
+| RCtrl + X / Menu Key | Middle Click | Perform a mouse middle click |
 | RCtrl + C | Right Click | Perform a mouse right click |
 | Ctrl + Alt + Up/Down Arrow | Scroll Wheel | Scroll up or down |
 |  |  |  |
